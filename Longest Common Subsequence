@@ -1,0 +1,54 @@
+import java.util.*;
+public class longcommsubseq {
+ public static void main(String[] args) {
+ String s1;
+ String s2;
+ Scanner sc=new Scanner(System.in);
+ System.out.println("Enter the String s1:");
+ s1=sc.nextLine();
+ System.out.println("Enter the String s2:");
+ s2=sc.nextLine();
+ char[] st1=s1.toCharArray();
+ char[] st2=s2.toCharArray();
+ int l=0,m=0;
+ int[][] lcs=new int[10][10];
+ for(int i=0;i<=st2.length;i++)
+ {
+ for(int j=0;j<=st1.length;j++)
+ {
+ lcs[i][j]=0;
+ }
+ }
+ for(int i=1;i<=st2.length;i++)
+ {
+ for(int j=1;j<=st1.length;j++)
+ {
+ m=lcs[i-1][j-1];
+ l=lcs[i][j-1];
+ if(st1[i-1]==st2[j-1])
+ lcs[i][j]=1+lcs[i-1][j-1];
+ else 
+ lcs[i][j]=Math.max(m,l);
+ }
+ }
+ int max=lcs[0][0];
+ for(int i=0;i<=st2.length;i++)
+ {
+ for(int j=0;j<=st1.length;j++)
+ {
+ if(lcs[i][j]>max)
+ max=lcs[i][j];
+ }
+ } 
+ 
+ for(int i=0;i<=st2.length;i++)
+ {
+ for(int j=0;j<=st1.length;j++)
+ {
+ System.out.print(lcs[i][j]);
+ }
+ System.out.println();
+ }
+ System.out.println(" Maximum Length of the subsequence : "+max);
+ }
+}
